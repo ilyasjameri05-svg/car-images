@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data & generated assets (keep folder structure, ignore contents)
+data/database.db
+data/temp/*
+!data/temp/.gitkeep
+data/projects/*
+!data/projects/.gitkeep
+
+# Environment variables & secrets
+.env
+.env.*
+*.key
+
+# OS & IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
