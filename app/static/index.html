@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KDP Puzzle Book Generator</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">KDP Puzzle Gen</div>
+        <nav>
+            <button class="nav-btn active" data-target="dashboard">Dashboard</button>
+            <button class="nav-btn" data-target="settings">Settings</button>
+            <button class="nav-btn" data-target="selection">Puzzles</button>
+            <button class="nav-btn" data-target="generation">Generation</button>
+            <button class="nav-btn" data-target="preview">Preview</button>
+            <button class="nav-btn" data-target="export">Export</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="page active">
+            <h1>Dashboard</h1>
+            <div class="card-grid">
+                <div class="card" id="btn-new-project">
+                    <h3>Create New Book</h3>
+                    <p>Start a new puzzle book project from scratch.</p>
+                </div>
+                <div class="card" id="btn-open-project">
+                    <h3>Open Project</h3>
+                    <p>Load an existing project to continue editing.</p>
+                </div>
+            </div>
+            
+            <div class="stats-panel mt-20">
+                <h2>Current Project Stats</h2>
+                <div id="project-stats">
+                    <p>No active project.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section id="settings" class="page hidden">
+            <h1>Book Settings</h1>
+            <form id="settings-form">
+                <div class="form-group">
+                    <label>Book Title:</label>
+                    <input type="text" id="set-title" value="New Puzzle Book">
+                </div>
+                <div class="form-group">
+                    <label>Subtitle:</label>
+                    <input type="text" id="set-subtitle">
+                </div>
+                <div class="form-group">
+                    <label>Author Name:</label>
+                    <input type="text" id="set-author" value="Author Name">
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label>Difficulty (Deprecated):</label>
+                    <select id="set-difficulty"></select>
+                </div>
+                
+                <div class="form-row">
+                    <label><input type="checkbox" id="set-cover" checked> Include Cover</label>
+                    <label><input type="checkbox" id="set-titlepage" checked> Include Title Page</label>
+                    <label><input type="checkbox" id="set-intro" checked> Include Introduction</label>
+                    <label><input type="checkbox" id="set-answers" checked> Include Answer Key</label>
+                </div>
+                
+                <button type="button" class="btn primary" id="btn-save-settings">Save & Continue</button>
+            </form>
+        </section>
+
+        <!-- Puzzle Selection Section -->
+        <section id="selection" class="page hidden">
+            <h1>Puzzle Types</h1>
+            <p>Configure the exact quantity and difficulty for each puzzle type.</p>
+            <table class="puzzle-table">
+                <thead>
+                    <tr>
+                        <th>Puzzle</th>
+                        <th>Quantity</th>
+                        <th>Difficulty</th>
+                    </tr>
+                </thead>
+                <tbody id="puzzle-config-body">
+                    <!-- Populated dynamically -->
+                </tbody>
+            </table>
+            <div class="mt-20">
+                <strong>Total puzzles: <span id="total-puzzles">0</span></strong>
+            </div>
+            <button type="button" class="btn primary mt-20" id="btn-start-generation">Generate Book</button>
+        </section>
+
+        <!-- Generation Section -->
+        <section id="generation" class="page hidden">
+            <h1>Generation Status</h1>
+            <div class="status-box">
+                <p id="gen-status-text">Ready to generate.</p>
+                <div class="progress-bar-container">
+                    <div id="gen-progress-bar" class="progress-bar"></div>
+                </div>
+                <ul id="gen-stats-list"></ul>
+            </div>
+            <button type="button" class="btn primary mt-20 hidden" id="btn-go-preview">View Pages</button>
+        </section>
+
+        <!-- Preview Section -->
+        <section id="preview" class="page hidden">
+            <div class="preview-header">
+                <h1>Page Preview</h1>
+                <div class="preview-controls">
+                    <button id="prev-page" class="btn small">← Prev</button>
+                    <span id="page-indicator">Page 0 / 0</span>
+                    <button id="next-page" class="btn small">Next →</button>
+                </div>
+                <button id="btn-regenerate-single" class="btn secondary">Regenerate This Puzzle</button>
+            </div>
+            
+            <div class="preview-container">
+                <!-- Visually rendered puzzle goes here -->
+                <div id="puzzle-visuals" class="visual-pane"></div>
+                
+                <!-- Raw JSON data for debugging/info -->
+                <div class="data-pane">
+                    <h3>Puzzle Data</h3>
+                    <pre id="puzzle-json-data"></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- Export Section -->
+        <section id="export" class="page hidden">
+            <h1>Preflight & Export</h1>
+            
+            <div class="preflight-box">
+                <h2>Preflight Check</h2>
+                <button type="button" class="btn secondary" id="btn-run-preflight">Run Checks</button>
+                <div id="preflight-results" class="mt-20"></div>
+            </div>
+            
+            <div class="export-box mt-20">
+                <h2>Export PDF</h2>
+                <div class="form-group">
+                    <label>Output Filename:</label>
+                    <input type="text" id="export-filename" value="my_puzzle_book.pdf">
+                </div>
+                <button type="button" class="btn primary" id="btn-export-pdf" disabled>Export PDF</button>
+                <div id="export-results" class="mt-20"></div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
